@@ -160,6 +160,84 @@ Exchange credentials for `access_token`.
 
 # Group Posts
 
+## Post [/posts]
+
+### Create a post [POST]
+
++ Request
+  + Attributes (OAuth Grant Request)
+
++ Headers
+
+  Authorization: Bearer 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 201 (application/vnd.api+json)
+
+  + Attributes (Post Response)
+
++ Response 422 (application/vnd.api+json)
+
+  + Attributes (Unprocessable Entity Response)
+
+## Post [/posts/{id}]
+
++ Parameters
+
+  + id: 1 (number, required)
+
+### Retrieve a post [GET]
+
++ Request
+  + Attributes (OAuth Grant Request)
+
++ Headers
+
+  Authorization: Bearer 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 200 (application/vnd.api+json)
+
+  + Attributes (Post Response)
+
++ Response 404 (application/vnd.api+json)
+
+  + Attributes (Record Not Found Response)
+
+## POST [/posts/{id}]
+
++ Parameters
+
+  +  id: 1 (number, required)
+
+### Update a post [PUT]
+
++ Headers
+
+  Authorization: Bearer 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 204 (application/vnd.api+json)
+
+  + Attributes (No Content Response)
+
++ Response 404 (application/vnd.api+json)
+
+  + Attributes (Record Not Found Response)
+
++ Response 409 (application/vnd.api+json)
+
+  + Attributes (Creation Conflict Response)
+
+## Posts [/posts]
+
+### List all posts [GET]
+
++ Headers
+
+  Authorization: Bearer 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 200 (application/vnd.api+json)
+
+  + Attributes (Posts Response)
+
 # Group Preview User Mentions
 
 # Group Previews
@@ -580,6 +658,18 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 ## Organization Resource Identifier
 + id: `1` (string)
 + type: `organizations` (string)
+
+## Post Response (object)
++ id: 1 (string)
++ status: `open` (string)
++ post_type: `task` (string)
++ title: `This is the title of a post` (string)
++ body: `This is the body of of a post filled with lots of awesome details` (string)
++ user_id: 1 (string)
+
+## Posts Response (object)
++ posts
+  + data(array[Post], required)
 
 ## Preview (object)
 + body: `<p>A <strong>strong</strong> preview</p>` (string)
