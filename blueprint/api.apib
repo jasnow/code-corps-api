@@ -140,6 +140,7 @@ Exchange email and password for `access_token`.
 
 ## Comment User mentions [/comment_user_mentions]
 
+<<<<<<< 6f24ea030670f3f3aa86ea9b073efa9543b7a116
 A comment may contain a number of comment user mentions. For example, let's imagine a user were to comment:
 
 > Looks good to merge, @test!
@@ -152,6 +153,8 @@ Since a user's username may change over time, we don't want to always update the
 
 In the example above, the `indices` returned would be `[21, 26]`, corresponding to their location in the string. If the `username` were to change to `testuser` after the comment was created, the `indices` would remain the same, but the `username` returned would be the new value of `testuser`. Many languages allow some form of `slice` that lets you use these indices to replace the substring dynamically.
 
+=======
+>>>>>>> Added documentation for the comment user mentions API
 ### List all comment user mentions [GET]
 
 + Request
@@ -672,15 +675,26 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 
 ## Comment User Mention Relationships (object)
 + user
+<<<<<<< 6f24ea030670f3f3aa86ea9b073efa9543b7a116
     + data (User Relationship)
 + comment
     + data (Comment Relationship)
+=======
+  + data (User Relationship)
++ comment
+  + data (Comment Relationship)
+>>>>>>> Added documentation for the comment user mentions API
 
 ## Comment User Mention Resource (object)
 + Include Comment User Mention Resource Identifier
 + attributes
+<<<<<<< 6f24ea030670f3f3aa86ea9b073efa9543b7a116
     + username: `test` (string)
     + indices: 21, 26 (array[number])
+=======
+  + username: `josh` (string)
+  + indices: 50, 54 (array[number])
+>>>>>>> Added documentation for the comment user mentions API
 
 ## Comment User Mention Resource Identifier
 + id: `1` (string)
