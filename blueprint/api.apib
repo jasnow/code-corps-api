@@ -16,18 +16,20 @@ The staging API can be found at `https://api.pbqrpbecf.org`.
 The remote development API can be found at `https://api.pbqrpbecf-qri.org`.
 
 # Authentication
-When using the API's authenticated endpoints you can authenticate users by exchanging the `username` and `password` for an OAuth token.
+
+When using the API's authenticated endpoints you can authenticate users by exchanging the `username` (email address) and `password` for an OAuth token.
 
 ## OAuth Token Exchange [/oauth/token]
-Exchange credentials for `access_token`.
 
-### Exchange credentials for token [POST]
+Exchange email and password for `access_token`.
+
+### Exchange email and password for token [POST]
+
 + Request
     + Attributes (OAuth Grant Request)
     + Headers
 
-            Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
-            Content-Type: application/x-www-form-urlencoded
+            Content-Type: application/vnd.api+json
 
 + Response 200 (application/json)
     + Attributes (OAuth Valid Response)
@@ -135,6 +137,23 @@ Exchange credentials for `access_token`.
   + Attributes (Unprocessable Entity Response)
 
 # Group Comment User Mentions
+
+## Comment User mentions [/comment_user_mentions]
+
+### List all comment user mentions [GET]
+
++ Request
+
++ Parameters
+  + comment_id: `1` (string)
+
++ Headers
+
+  Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 200 (application/vnd.api+json)
+
+  + Attributes (Comment User Mentions Response)
 
 # Group Comments
 
@@ -635,6 +654,35 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 + id: 1 (string)
 + type: comments (string)
 
+## Comment Relationship (object)
++ id: 1 (string)
++ type: comments (string)
+
+## Comment User Mention Relationships (object)
++ user
+  + data (User Relationship)
++ comment
+  + data (Comment Relationship)
+
+## Comment User Mention Resource (object)
++ Include Comment User Mention Resource Identifier
++ attributes
+  + username: `josh` (string)
+  + indices: 50, 54 (array[number])
+
+## Comment User Mention Resource Identifier
++ id: `1` (string)
++ type: `comment_user_mentions` (string)
+
+## Comment User Mention Response (object)
++ data (object)
+    + Include (Comment User Mention Resource)
+    + relationships
+        + Include (Comment User Mention Relationships)
+
+## Comment User Mentions Response (object)
++ data(array[Comment User Mention Response])
+
 ## Creation Conflict Response (object)
 + title: `Conflict` (string)
 
@@ -848,6 +896,14 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 ## User Resource Identifier (object)
 + id: `1` (string)
 + type: `users` (string)
+
+## User Relationship (object)
++ id: 1 (string)
++ type: users (string)
+
+## User Roles Relationship (object)
++ id: 1 (string)
++ type: user_roles (string)
 
 ## User Category Resource Identifier
 + id: `1` (string)
