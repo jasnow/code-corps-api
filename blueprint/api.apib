@@ -138,6 +138,68 @@ Exchange credentials for `access_token`.
 
 # Group Comments
 
+## Comments [/comments]
+
+### Create a comment [POST]
+
++ Request
+
+    + Attributes (Comment Create Request)
+
++ Headers
+
+    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 201 (application/vnd.api+json)
+
+    + Attributes (Comment Response)
+
++ Response 422 (application/vnd.api+json)
+
+    + Attributes (Unprocessable Entity Response)
+
+### Update a comment [PATCH /comments/{id}]
+
++ Request
+
+    + Attributes (Comment Update Request)
+
++ Headers
+
+    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 201 (application/vnd.api+json)
+
+    + Attributes (Comment Response)
+
++ Response 422 (application/vnd.api+json)
+
+    + Attributes (Unprocessable Entity Response)
+
+### List comments with specified ids [GET]
+
++ Request
+
+    + Attributes (Id Filter)
+
++ Headers
+
+    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Comments Response)
+
+## List comments for a specified post [GET /posts/:number/comments]
+
++ Headers
+
+    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Comments Response)
+
 # Group Github Repositories
 
 # Group Import Skill Failures
@@ -868,7 +930,7 @@ When creating a user category, the authenticated user is assumed by the server s
 
 ## Comment Image Relationships Base (object)
 + comment
-  + data(Comments Relationship)
+  + data(Comment Resource Identifier)
 + user
   + data(User Resource Identifier)
 
@@ -881,9 +943,77 @@ When creating a user category, the authenticated user is assumed by the server s
 ## Comment Image Response (object)
 + data(Comment Image Response Base)
 
-## Comments Relationship (object)
-+ id: 1 (string)
-+ type: comments (string)
+## Comment Resource (object)
++ include Comment Resource Identifier
++ attributes(Comment Attributes)
++ relationships
+    + posts
+        + data(Post Resource Identifier)
+        + links (object)
+    + users
+        + data(User Resource Identifier)
+        + links (object)
+    + comment_user_mentions
+        + data(array[Comment User Mention Resource Identifier])
+        + links (object)
+
+## Comment Attributes (object)
++ markdown: `Markdown formatted string` (string)
++ body: `Html string rendered from markdown` (string)
++ state: (enum[string])
+    + Members
+        + `published`
+        + `edited`
++ edited_at: `2014-07-07T18:01:26.000Z` (string)
++ created_at: `2014-07-07T18:01:26.000Z` (string)
+
+## Comment Resource Identifier (object)
++ id: `1` (string)
++ type: `comments` (string)
+
+## Comment Create Request (object)
++ type: `comments` (string)
++ attributes
+    + markdown: `Markdown formatted string` (string)
++ relationships
+    + posts
+        + data(Post Resource Identifier)
+
+## Comment Update Request (object)
++ include Comment Resource Identifier
++ attributes
+    + markdown: `Markdown formatted content` (string)
+
+## Comment Response (object)
++ data
+    + include Comment Resource
++ included(array[Comment User Mention Resource])
+
+## Comments Response (object)
++ comments
+    + data(array[Comment Response], required)
++ included(array[Comment User Mention Resource])
+
+## Comment User Mention Resource (object)
++ include Comment User Mention Resource Identifier
++ attributes
+    + include Comment User Mention Attributes
++ relationships
+    + users
+        + data(User Resource Identifier)
+        + links (object)
+    + comments
+        + data(Comment Resource Identifier)
+        + links (object)
+
+## Comment User Mention Attributes (object)
++ indices: 1, 2 (array[number])
+    The start and the end index of where the mention is to be placed within the comment body
++ username: 'Username of related user' (string)
+
+## Comment User Mention Resource Identifier (object)
++ id: `1` (string)
++ type: `comment_user_mentions` (string)
 
 ## Creation Conflict Response (object)
 + title: `Conflict` (string)
@@ -965,6 +1095,10 @@ When creating a user category, the authenticated user is assumed by the server s
 ## Organization Membership Resource Identifier
 + id: `1` (string)
 + type: `organization_memberships` (string)
+
+## Post Resource Identifier
++ id: `1` (string)
++ type: `posts` (string)
 
 ## Preview (object)
 + body: `<p>A <strong>strong</strong> preview</p>` (string)
@@ -1194,3 +1328,7 @@ When creating a user category, the authenticated user is assumed by the server s
 ## User Skill Resource Identifier (object)
 + id: `1` (string)
 + type: `user_skills` (string)
+
+## Id Filter (object)
++ filter:
+    + id: `1,2,3,...` (string, required)
