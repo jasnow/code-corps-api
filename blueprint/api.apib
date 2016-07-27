@@ -140,6 +140,18 @@ Exchange email and password for `access_token`.
 
 ## Comment User mentions [/comment_user_mentions]
 
+A comment may contain a number of comment user mentions. For example, let's imagine a user were to comment:
+
+> Looks good to merge, @test!
+
+The comment user mention inside the body of this comment string would return the user's `username` which is `test`, along with `indices`, an array of positions indicating the start and end characters for the user's original username inside the string.
+
+When fetching mentions, you are expected to replace the old `username` in the string with the current `username` using the provided `indices`.
+
+Since a user's username may change over time, we don't want to always update the user's previous comments. Instead, we keep track of the location of the `username` inside the string. This allows us to update the text dynamically, and return a dynamic `username` that reflects the current value.
+
+In the example above, the `indices` returned would be `[21, 26]`, corresponding to their location in the string. If the `username` were to change to `testuser` after the comment was created, the `indices` would remain the same, but the `username` returned would be the new value of `testuser`. Many languages allow some form of `slice` that lets you use these indices to replace the substring dynamically.
+
 ### List all comment user mentions [GET]
 
 + Request
@@ -667,8 +679,8 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 ## Comment User Mention Resource (object)
 + Include Comment User Mention Resource Identifier
 + attributes
-  + username: `josh` (string)
-  + indices: 50, 54 (array[number])
+  + username: `test` (string)
+  + indices: 21, 26 (array[number])
 
 ## Comment User Mention Resource Identifier
 + id: `1` (string)
