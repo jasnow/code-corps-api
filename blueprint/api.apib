@@ -148,6 +148,108 @@ Exchange credentials for `access_token`.
 
 # Group Organization Memberships
 
+## Organization Memberships [/organization_memberships]
+
+### List organization memberships specified by a list of ids [GET]
+
++ Request
+
+    + Attributes (Id Filter)
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Organization Memberships Response)
+
+### Find an organization membership [GET /organization_memberships/:id]
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Organization Membership Response)
+
+### Find all memberships for an organization [GET /organizations/:id/memberships]
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Organization Memberships Response)
+
+### Create an organization membership [POST]
+
++ Request
+
+    + Attributes (Organization Membership Create Request)
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 201 (application/vnd.api+json)
+
+    + Attributes (Organization Membership Response)
+
++ Response 401 (application/json)
+
+    + Attributes (OAuth Invalid Response)
+
++ Response 403 (application/json)
+
+    + Attributes (Forbidden Response)
+
+### Update an organization membership [PATCH /organization_memberships/:id]
+
++ Request
+
+    + Attributes (Organization Membership Update Request)
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 201 (application/vnd.api+json)
+
+    + Attributes (Organization Membership Response)
+
++ Response 401 (application/json)
+
+    + Attributes (OAuth Invalid Response)
+
++ Response 403 (application/json)
+
+    + Attributes (Forbidden Response)
+
+### Destroy an organization membership [DELETE /organization_memberships/:id]
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 204 (application/vnd.api+json)
+
+    + Attributes (No Content Response)
+
++ Response 401 (application/json)
+
+    + Attributes (OAuth Invalid Response)
+
++ Response 403 (application/json)
+
+    + Attributes (Forbidden Response)
+
++ Response 404 (application/vnd.api+json)
+
+    + Attributes (Record Not Found Response)
+
 # Group Organizations
 
 This endpoint retrieves organzations that are signed up with Code Corp looking for contributors.
@@ -809,9 +911,49 @@ When creating a user category, the authenticated user is assumed by the server s
         + data(array[Organization Membership Resource Identifier])
         + links
 
-## Organization Membership Resource Identifier
+## Organization Membership Resource (object)
++ include Organization Membership Resource Identifier
++ attributes(Organization Membership Attributes)
++ relationships
+    + members (object)
+        + data(User Resource Identifier)
+        + links (object)
+    + organizations
+        + data(Organization Resource Identifier)
+        + links (object)
+
+## Organization Membership Attributes (object)
++ role: (enum[string])
+    + Members
+        + `pending`
+        + `contributor`
+        + `admin`
+        + `owner`
+
+## Organization Membership Resource Identifier (object)
 + id: `1` (string)
 + type: `organization_memberships` (string)
+
+## Organization Membership Response (object)
++ data(Organization Membership Resource)
+
+## Organization Memberships Response (object)
++ data(array[Organization Membership Resource])
+
+## Organization Membership Create Request (object)
++ type: `organization_memberships` (string)
++ attributes(Organization Membership Attributes)
++ relationships
+    + members
+        + data(User Recource Identifier)
+        + links (object)
+    + organizations
+        + data(Organization Resource Identifier)
+        + links (object)
+
+## Organization Membership Update Request (object)
++ include Organization Membership Resource Identifier
++ attributes(Organization Membership Attributes)
 
 ## Preview (object)
 + body: `<p>A <strong>strong</strong> preview</p>` (string)
@@ -983,3 +1125,7 @@ When creating a user category, the authenticated user is assumed by the server s
 ## User Skill Resource Identifier (object)
 + id: `1` (string)
 + type: `user_skills` (string)
+
+## Id Filter (object)
++ filter:
+    + id: `1,2,3,...` (string, required) - A list of ids, in a single string, comma-separated
