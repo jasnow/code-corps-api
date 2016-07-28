@@ -138,7 +138,7 @@ Exchange email and password for `access_token`.
 
 # Group Comment User Mentions
 
-## Comment User mentions [/comment_user_mentions]
+## Comment User mentions [/comment_user_mentions{?comment_id}]
 
 A comment may contain a number of comment user mentions. For example, let's imagine a user were to comment:
 
@@ -154,18 +154,19 @@ In the example above, the `indices` returned would be `[21, 26]`, corresponding 
 
 ### List all comment user mentions [GET]
 
++ Parameters
+
+    + comment_id: `1` (number)
+
 + Request
 
-+ Parameters
-  + comment_id: `1` (string)
+    + Headers
 
-+ Headers
-
-  Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+        Accept: application/vnd.api+json
 
 + Response 200 (application/vnd.api+json)
 
-  + Attributes (Comment User Mentions Response)
+    + Attributes (Comment User Mentions Response)
 
 # Group Comments
 
@@ -670,30 +671,26 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 + id: 1 (string)
 + type: comments (string)
 
-## Comment User Mention Relationships (object)
-+ user
-    + data (User Relationship)
-+ comment
-    + data (Comment Relationship)
-
-## Comment User Mention Resource (object)
-+ Include Comment User Mention Resource Identifier
-+ attributes
-    + username: `test` (string)
-    + indices: 21, 26 (array[number])
-
 ## Comment User Mention Resource Identifier
 + id: `1` (string)
 + type: `comment_user_mentions` (string)
 
-## Comment User Mention Response (object)
-+ data (object)
-    + Include (Comment User Mention Resource)
-    + relationships
-        + Include (Comment User Mention Relationships)
-
 ## Comment User Mentions Response (object)
-+ data(array[Comment User Mention Response])
++ data(array[Comment User Mention Resource])
+
+## Comment User Mention Response (object)
++ data(Comment User Mention Resource)
+
+## Comment User Mention Resource (object)
++ include Comment User Mention Resource Identifier
++ attributes
+    + username: `user` (string)
+    + indices: 21, 26 (array[number])
++ relationships
+    + users
+        + data(User Resource Identifier)
+    + comments
+        + data(Comment Resource Identifier)
 
 ## Creation Conflict Response (object)
 + title: `Conflict` (string)
@@ -908,14 +905,6 @@ This allows A Skill to be under different Roles and a Role to have multiple Skil
 ## User Resource Identifier (object)
 + id: `1` (string)
 + type: `users` (string)
-
-## User Relationship (object)
-+ id: 1 (string)
-+ type: users (string)
-
-## User Roles Relationship (object)
-+ id: 1 (string)
-+ type: user_roles (string)
 
 ## User Category Resource Identifier
 + id: `1` (string)
