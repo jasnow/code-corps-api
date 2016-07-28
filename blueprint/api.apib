@@ -572,6 +572,54 @@ When creating a user category, the authenticated user is assumed by the server s
 
 # Group User Roles
 
+This endpoint retrieves sets of users and roles to act as a join table between the two
+
+### Create a user_role [POST /user_roles]
+
++ Request
+
+    + Headers
+
+        Accept: application/vnd.api+json
+        Authorization: Bearer <access_token>
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (User Role Response)
+
++ Response 422 (application/vnd.api+json)
+
+    + Attributes (Unprocessable Entity Response)
+
+### Delete a user_role [DELETE /user_roles/{id}]
+
++ Parameters
+
+    + id - The Id of a user_role
+
++ Request
+
+    + Headers
+
+        Accept: application/vnd.api+json
+        Authorization: Bearer <access_token>
+
++ Response 204 (application/vnd.api+json)
+
+    + Attributes (No Content Response)
+
++ Response 401 (application/json)
+
+    + Attributes (OAuth Invalid Response)
+
++ Response 403 (application/vnd.api+json)
+
+    + Attributes (Forbidden Response)
+
++ Response 404 (application/vnd.api+json)
+
+    + Attributes (Record Not Found Response)
+
 # Group User Skills
 
 # Group Users
@@ -1082,6 +1130,22 @@ When creating a user category, the authenticated user is assumed by the server s
 ## User Role Resource Identifier
 + id: `1` (string)
 + type: `user_roles` (string)
+
+## User Role Response (object)
++ data(User Role Resource)
+
+## User Roles Response (object)
++ data(array[User Role Resource])
+
+## User Role Resource (object)
++ include User Role Resource Identifier
++ relationships
+  + role
+    + data(Role Resource Identifier)
+    + links
+  + user
+    + data(User Resource Identifier)
+    + links
 
 ## User Skill Resource Identifier (object)
 + id: `1` (string)
