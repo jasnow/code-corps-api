@@ -150,31 +150,12 @@ Exchange credentials for `access_token`.
 
 ## Organization Memberships [/organization_memberships]
 
-### List organization memberships specified by a list of ids [GET]
+### Filter organization memberships by id [GET]
 
-+ Request
++ Parameters
 
-    + Attributes (Id Filter)
-
-+ Headers
-
-    Authorization: Bearer {access_token}
-
-+ Response 200 (application/vnd.api+json)
-
-    + Attributes (Organization Memberships Response)
-
-### Find an organization membership [GET /organization_memberships/:id]
-
-+ Headers
-
-    Authorization: Bearer {access_token}
-
-+ Response 200 (application/vnd.api+json)
-
-    + Attributes (Organization Membership Response)
-
-### Find all memberships for an organization [GET /organizations/:id/memberships]
+    + filter
+        + id: `1,2,...` (string, required) - Comma separated string of `ids` to filter by.
 
 + Headers
 
@@ -206,7 +187,29 @@ Exchange credentials for `access_token`.
 
     + Attributes (Forbidden Response)
 
-### Update an organization membership [PATCH /organization_memberships/:id]
+### List all organization memberships for an organization [GET /organizations/:id/memberships]
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Organization Memberships Response)
+
+## Organization Membership [/organization_memberships/:id]
+
+### Retrieve an organization membership [GET]
+
++ Headers
+
+    Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Organization Membership Response)
+
+### Update an organization membership [PATCH]
 
 + Request
 
@@ -228,7 +231,7 @@ Exchange credentials for `access_token`.
 
     + Attributes (Forbidden Response)
 
-### Destroy an organization membership [DELETE /organization_memberships/:id]
+### Destroy an organization membership [DELETE]
 
 + Headers
 
