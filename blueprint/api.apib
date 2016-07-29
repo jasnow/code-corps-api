@@ -140,16 +140,56 @@ Exchange credentials for `access_token`.
 
 ## Comments [/comments]
 
+### Filter comments by list of ids [GET /comments{?filter[id]}]
+
++ Parameters
+
+    + `filter[id]`: `1,2,3` (string, required) - Comma separated string of `ids` to filter by.
+
+        Technically, the parameter is `filter: { id: '1,2,3' }`, which ends up being serialized into `filter[id]`. However, synthax constraints to not allow us to define it in the documentation this way.
+
+
++ Request
+
+    + Headers
+
+        Accept: application/vnd.api+json
+
+        Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Comments Response)
+
+## List comments for a specified post [GET /posts/{number}/comments]
+
++ Parameters
+
+    + number: 1 (number, required) - Post number, uniquely identifying a post
+
++ Request
+
+    + Headers
+
+        Accept: application/vnd.api+json
+
+        Authorization: Bearer {access_token}
+
++ Response 200 (application/vnd.api+json)
+
+    + Attributes (Comments Response)
+
 ### Create a comment [POST]
 
 + Request
+    + Headers
+
+        Accept: application/vnd.api+json
+
+        Authorization: Bearer {access_token}
 
     + Attributes (Comment Create Request)
 
-+ Headers
-
-    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
-
 + Response 201 (application/vnd.api+json)
 
     + Attributes (Comment Response)
@@ -158,16 +198,24 @@ Exchange credentials for `access_token`.
 
     + Attributes (Unprocessable Entity Response)
 
-### Update a comment [PATCH /comments/{id}]
+## Comment [/comments/{id}]
+
++ Parameters
+
+    + id: `1` (string, required) - Comment id, uniquely identifying a comment
+
+### Update a comment [PATCH]
 
 + Request
+
+    + Headers
+
+        Accept: application/vnd.api+json
+
+        Authorization: Bearer {access_token}
 
     + Attributes (Comment Update Request)
 
-+ Headers
-
-    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
-
 + Response 201 (application/vnd.api+json)
 
     + Attributes (Comment Response)
@@ -175,30 +223,6 @@ Exchange credentials for `access_token`.
 + Response 422 (application/vnd.api+json)
 
     + Attributes (Unprocessable Entity Response)
-
-### List comments with specified ids [GET]
-
-+ Request
-
-    + Attributes (Id Filter)
-
-+ Headers
-
-    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
-
-+ Response 200 (application/vnd.api+json)
-
-    + Attributes (Comments Response)
-
-## List comments for a specified post [GET /posts/:number/comments]
-
-+ Headers
-
-    Authorization: Basic 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
-
-+ Response 200 (application/vnd.api+json)
-
-    + Attributes (Comments Response)
 
 # Group Github Repositories
 
