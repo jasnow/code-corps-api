@@ -308,8 +308,8 @@ Write privileges are for admin users only, read can be accessable by any user.
   + Attributes (Record Not Found Response)
 
 
-### Create a new project [POST]
-Creates a new project. This requires admin privileges.
+### Create a new post [POST]
+Creates a new post. This requires admin privileges.
 Client should first obtain an OAuth token with proper credential to be able to create a new project
 
 + Request (application/vnd.api+json)
@@ -346,6 +346,46 @@ Client should first obtain an OAuth token with proper credential to be able to c
   + Response 422 (application/vnd.api+json)
 
     + Attributes (Unprocessable Entity Response)
+
+### Update an existing post [PATCH]
+Updates an existing post. This requires admin privileges.
+Client should first obtain an OAuth token with proper credential to be able to create a new project
+
++ Request (application/vnd.api+json)
+
+  + Headers
+
+    Authorization: Bearer {access_token}
+
+  + Attributes (object)
+    + number: 1 (number)
+    + post_type: `task` (string)
+    + state: `published` (string)
+    + status: `open` (string)
+    + title: `A task` (string)
+    + body: `This is a basic task` (string)
+    + markdown: `This is a basic task` (string)
+    + likes_count: 0 (number)
+    + comments_count: 0 (number)
+    + created_at: `2016-07-13T23:20:25.036Z` (string)
+    + edited_at: `2016-07-13T23:20:25.036Z` (string)
+
++ Response 200 (application/vnd.api+json)
+
+  + Attributes (Single Post Data For A Given Project response)
+
++ Response 401 (application/json)
+
+  + Attributes (OAuth Invalid Response)
+
++ Response 403 (application/json)
+
+  + Attributes (Forbidden Response)
+
+ + Response 422 (application/vnd.api+json)
+
+   + Attributes (Unprocessable Entity Response)
+
 
 # Group Preview User Mentions
 
