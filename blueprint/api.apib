@@ -273,11 +273,11 @@ Write privileges are for admin users only, read can be accessable by any user.
     + project_id - The Id of a project.
     + post_id - The id of a post
 
-    + Request
++ Request
 
-        + Headers
+  + Headers
 
-          Accept: application/vnd.api+json
+    Accept: application/vnd.api+json
 
 + Response 200 (application/vnd.api+json)
 
@@ -308,9 +308,13 @@ Write privileges are for admin users only, read can be accessable by any user.
   + Attributes (Record Not Found Response)
 
 
-### Create a new post [POST]
+### Create a new post [POST /projects/{project_id}/posts]
 Creates a new post. This requires admin privileges.
 Client should first obtain an OAuth token with proper credential to be able to create a new project
+
++ Parameters
+
+  + project_id - The Id of a project.
 
 + Request (application/vnd.api+json)
 
@@ -347,9 +351,14 @@ Client should first obtain an OAuth token with proper credential to be able to c
 
     + Attributes (Unprocessable Entity Response)
 
-### Update an existing post [PATCH]
+### Update an existing post [PATCH /projects/{project_id}/posts/{post_id}]
 Updates an existing post. This requires admin privileges.
 Client should first obtain an OAuth token with proper credential to be able to create a new project
+
++ Parameters
+
+  + project_id - The Id of a project.
+  + post_id - The id of a post
 
 + Request (application/vnd.api+json)
 
